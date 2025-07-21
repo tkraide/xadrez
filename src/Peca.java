@@ -1,58 +1,61 @@
+package com.mycompany.xadrez2;
+
 /**
- * Representa uma peça genérica do jogo de xadrez.
- * Esta classe é abstrata e define a estrutura base para todas as peças específicas.
+ * Classe abstrata que representa uma peça genérica do xadrez, contendo:
+ * - Cor da peça
+ * - Estado de captura
+ * - Métodos abstratos para desenho e movimentação
  */
 public abstract class Peca {
-
     private Cor cor;
     private boolean capturada = false;
 
-    // Construtor para a Peça.
-
+    /**
+     * Construtor da peça
+     * @param cor Cor da peça (BRANCA ou PRETA)
+     */
     public Peca(Cor cor) {
         this.cor = cor;
     }
 
+    // Getters e Setters
     public Cor getCor() {
         return cor;
     }
 
-    /**
-     * Verifica se a peça foi capturada.
-     * @return true se a peça foi capturada, false caso contrário.
-     */
     public boolean isCapturada() {
         return capturada;
     }
 
-    // Marca a peça como capturada.
+    public void setCor(Cor cor) {
+        this.cor = cor;
+    }
+
+    /**
+     * Marca a peça como capturada
+     */
     public void capturar() {
         this.capturada = true;
     }
 
     /**
-     * Método abstrato que retorna a representação da peça no tabuleiro.
-     * A representação diferencia peças brancas (maiúsculas) de pretas (minúsculas).
-     * @return Uma String com o caractere que representa a peça.
+     * Retorna a representação visual da peça
+     * @return String com o símbolo da peça
      */
     public abstract String desenho();
 
     /**
-     * Método abstrato que verifica se um movimento é válido para o tipo específico da peça,
-     * considerando apenas a geometria do movimento.
-     * @param linhaO Linha de origem (1 a 8).
-     * @param colunaO Coluna de origem ('a' a 'h').
-     * @param linhaD Linha de destino (1 a 8).
-     * @param colunaD Coluna de destino ('a' a 'h').
-     * @return true se o movimento é geometricamente válido para a peça, false caso contrário.
+     * Verifica se o movimento é válido para o tipo de peça
      */
     public abstract boolean movimentoValido(int linhaO, char colunaO, int linhaD, char colunaD);
 
     /**
-     * Método abstrato que, se o movimento for válido, retorna uma String representando
-     * a sequência de casas no caminho.
-     * Segue mesmos parâmetros de movimentoValido
-     * @return A string do caminho se o movimento for válido, ou uma string vazia caso contrário.
+     * Retorna o caminho percorrido pela peça
      */
     public abstract String caminho(int linhaO, char colunaO, int linhaD, char colunaD);
+
+    /**
+     * Método abstrato para calcular o caminho da peça
+     */
+    public abstract Caminho caminhoCaminho(Tabuleiro tabuleiro, int linhaO, char colunaO, int linhaD, char colunaD);
 }

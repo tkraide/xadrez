@@ -1,3 +1,4 @@
+package com.mycompany.xadrez2;
 public class Dama extends Peca {
 
     public Dama(Cor cor) {
@@ -41,5 +42,25 @@ public class Dama extends Peca {
         }
         path.append(linhaD).append(colunaD);
         return path.toString();
+    }
+
+    public Caminho caminhoCaminho(Tabuleiro tabuleiro, int linhaO, char colunaO, int linhaD, char colunaD) {
+        Caminho caminho = new Caminho();
+        if (!movimentoValido(linhaO, colunaO, linhaD, colunaD)) {
+            return caminho;
+        }
+        int deltaLinha = Integer.signum(linhaD - linhaO);
+        int deltaColuna = Integer.signum(colunaD - colunaO);
+
+        int linhaAtual = linhaO;
+        char colunaAtual = colunaO;
+
+        while (linhaAtual != linhaD || colunaAtual != colunaD) {
+            caminho.adicionarCasa(tabuleiro.getCasa(linhaAtual, colunaAtual));
+            linhaAtual += deltaLinha;
+            colunaAtual += deltaColuna;
+        }
+        caminho.adicionarCasa(tabuleiro.getCasa(linhaD, colunaD));
+        return caminho;
     }
 }

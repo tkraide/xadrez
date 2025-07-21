@@ -1,6 +1,9 @@
-// Enumeração para representar as cores das peças do jogo de xadrez.
+package com.mycompany.xadrez2;
 
+/**
+ * Enumeração que representa as cores das peças no jogo de xadrez
+ */
 public enum Cor {
-    BRANCA,
-    PRETA;
+    BRANCA,  // Peças brancas
+    PRETA;   // Peças pretas
 }
