@@ -1,5 +1,8 @@
-//Representa o tabuleiro de xadrez, contendo 64 casas.
-//É responsável pela configuração inicial das peças e por desenhar o estado atual do jogo.
+import java.util.ArrayList;
+import java.util.List;
+
+// Representa o tabuleiro de xadrez, contendo 64 casas.
+// É responsável pela configuração inicial das peças e por desenhar o estado atual do jogo.
 
 public class Tabuleiro {
     private Casa[][] casas;
@@ -58,7 +61,6 @@ public class Tabuleiro {
                 if (p != null) {
                     sb.append(p.desenho()).append(" |");
                 } else {
-                    // Representa casas vazias com base na paridade para simular cores [cite: 159]
                     if ((i + j) % 2 == 0) {
                         sb.append("##|"); // Casa escura
                     } else {
@@ -71,5 +73,36 @@ public class Tabuleiro {
         }
         sb.append("   a  b  c  d  e  f  g  h\n");
         return sb.toString();
+    }
+
+    // Retorna a Casa a partir da linha (1–8) e coluna ('a'–'h')
+    public Casa getCasa(int linha, char coluna) {
+        int i = linha - 1;
+        int j = coluna - 'a';
+        if (i >= 0 && i < 8 && j >= 0 && j < 8) {
+            return casas[i][j];
+        }
+        return null;
+    }
+
+    // Retorna a Casa a partir de uma string como "2a"
+    public Casa getCasaPorString(String posicao) {
+        if (posicao.length() != 2) return null;
+        int linha = Character.getNumericValue(posicao.charAt(0));
+        char coluna = posicao.charAt(1);
+        return getCasa(linha, coluna);
+    }
+
+    // Constrói um Caminho a partir de uma string como "2a3a4a"
+    public Caminho getCaminho(String caminhoStr) {
+        List<Casa> lista = new ArrayList<>();
+        for (int i = 0; i < caminhoStr.length(); i += 2) {
+            String pos = caminhoStr.substring(i, i + 2);
+            Casa c = getCasaPorString(pos);
+            if (c != null) {
+                lista.add(c);
+            }
+        }
+        return new Caminho(lista);
     }
 }
