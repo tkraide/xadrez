@@ -1,3 +1,4 @@
+package com.mycompany.xadrez2;
 public class Torre extends Peca {
 
     public Torre(Cor cor) {
@@ -34,5 +35,30 @@ public class Torre extends Peca {
             }
         }
         return path.toString();
+    }
+
+    public Caminho caminhoCaminho(Tabuleiro tabuleiro, int linhaO, char colunaO, int linhaD, char colunaD) {
+        Caminho caminho = new Caminho();
+        if (!movimentoValido(linhaO, colunaO, linhaD, colunaD)) {
+            return caminho;
+        }
+        if (linhaO == linhaD) { // Horizontal
+            int step = (colunaD > colunaO) ? 1 : -1;
+            char c = colunaO;
+            while (c != colunaD) {
+                caminho.adicionarCasa(tabuleiro.getCasa(linhaO, c));
+                c += step;
+            }
+            caminho.adicionarCasa(tabuleiro.getCasa(linhaD, colunaD));
+        } else { // Vertical
+            int step = (linhaD > linhaO) ? 1 : -1;
+            int l = linhaO;
+            while (l != linhaD) {
+                caminho.adicionarCasa(tabuleiro.getCasa(l, colunaO));
+                l += step;
+            }
+            caminho.adicionarCasa(tabuleiro.getCasa(linhaD, colunaD));
+        }
+        return caminho;
     }
 }

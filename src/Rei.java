@@ -1,3 +1,4 @@
+package com.mycompany.xadrez2;
 public class Rei extends Peca {
 
     public Rei(Cor cor) {
@@ -24,5 +25,15 @@ public class Rei extends Peca {
             return "" + linhaO + colunaO + linhaD + colunaD;
         }
         return "";
+    }
+
+    public Caminho caminhoCaminho(Tabuleiro tabuleiro, int linhaO, char colunaO, int linhaD, char colunaD) {
+        Caminho caminho = new Caminho();
+        if (!movimentoValido(linhaO, colunaO, linhaD, colunaD)) {
+            return caminho;
+        }
+        caminho.adicionarCasa(tabuleiro.getCasa(linhaO, colunaO));
+        caminho.adicionarCasa(tabuleiro.getCasa(linhaD, colunaD));
+        return caminho;
     }
 }

@@ -1,3 +1,4 @@
+package com.mycompany.xadrez2;
 public class Peao extends Peca {
 
     public Peao(Cor cor) {
@@ -49,5 +50,20 @@ public class Peao extends Peca {
 
         // Para outros movimentos, o caminho é apenas a origem e o destino.
         return "" + linhaO + colunaO + linhaD + colunaD;
+    }
+
+    public Caminho caminhoCaminho(Tabuleiro tabuleiro, int linhaO, char colunaO, int linhaD, char colunaD) {
+        Caminho caminho = new Caminho();
+        if (!movimentoValido(linhaO, colunaO, linhaD, colunaD)) {
+            return caminho;
+        }
+        caminho.adicionarCasa(tabuleiro.getCasa(linhaO, colunaO));
+        // Se for movimento de duas casas, inclui a intermediária
+        if (Math.abs(linhaO - linhaD) == 2) {
+            int linhaIntermediaria = (linhaO + linhaD) / 2;
+            caminho.adicionarCasa(tabuleiro.getCasa(linhaIntermediaria, colunaO));
+        }
+        caminho.adicionarCasa(tabuleiro.getCasa(linhaD, colunaD));
+        return caminho;
     }
 }

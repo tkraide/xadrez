@@ -1,3 +1,4 @@
+package com.mycompany.xadrez2;
 public class Bispo extends Peca {
 
     public Bispo(Cor cor) {
@@ -20,7 +21,6 @@ public class Bispo extends Peca {
         if (!movimentoValido(linhaO, colunaO, linhaD, colunaD)) {
             return "";
         }
-
         StringBuilder path = new StringBuilder();
         int deltaLinha = Integer.signum(linhaD - linhaO);
         int deltaColuna = Integer.signum(colunaD - colunaO);
@@ -28,12 +28,32 @@ public class Bispo extends Peca {
         int linhaAtual = linhaO;
         char colunaAtual = colunaO;
 
-        while(linhaAtual != linhaD + deltaLinha || colunaAtual != colunaD + deltaColuna) {
+        while (linhaAtual != linhaD || colunaAtual != colunaD) {
             path.append(linhaAtual).append(colunaAtual);
-            if (linhaAtual == linhaD && colunaAtual == colunaD) break;
             linhaAtual += deltaLinha;
             colunaAtual += deltaColuna;
         }
+        path.append(linhaD).append(colunaD);
         return path.toString();
+    }
+
+    public Caminho caminhoCaminho(Tabuleiro tabuleiro, int linhaO, char colunaO, int linhaD, char colunaD) {
+        Caminho caminho = new Caminho();
+        if (!movimentoValido(linhaO, colunaO, linhaD, colunaD)) {
+            return caminho;
+        }
+        int deltaLinha = Integer.signum(linhaD - linhaO);
+        int deltaColuna = Integer.signum(colunaD - colunaO);
+
+        int linhaAtual = linhaO;
+        char colunaAtual = colunaO;
+
+        while (linhaAtual != linhaD || colunaAtual != colunaD) {
+            caminho.adicionarCasa(tabuleiro.getCasa(linhaAtual, colunaAtual));
+            linhaAtual += deltaLinha;
+            colunaAtual += deltaColuna;
+        }
+        caminho.adicionarCasa(tabuleiro.getCasa(linhaD, colunaD));
+        return caminho;
     }
 }
